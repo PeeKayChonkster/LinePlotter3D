@@ -1,0 +1,1015 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Objects/LineEdit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scripts/UI.gd" type="Script" id=2]
+[ext_resource path="res://src/MyFontBigger.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/Scripts/ToggleUIButton.gd" type="Script" id=4]
+[ext_resource path="res://src/Scripts/ColorPickerButton.gd" type="Script" id=5]
+[ext_resource path="res://src/Scripts/StandartButton.gd" type="Script" id=6]
+[ext_resource path="res://src/Textures/Sprite-0001.png" type="Texture" id=7]
+[ext_resource path="res://src/MyFont.tres" type="DynamicFont" id=8]
+[ext_resource path="res://src/MyFontSmaller.tres" type="DynamicFont" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Close"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("UIPanel:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -48, -0.25, 0, 0.509972, 103.689, 0, -0.25, 0, 0.25, 0, -608, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("UIPanel:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("ParametersPanel:rect_position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1376, -0.25, 0, 0.109346, -23.217, 1328.03, -0.0817884, 23.5914, 0.221129, 15.8389, 1920, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("ParametersPanel:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.2, 0.5 )
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("UIPanel:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -608, -0.25, 0, 0.145882, 464.226, 0, -0.171281, -7.26239, 0.176873, -43.5504, -48, -0.0721626, 16.5456, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("UIPanel:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("ParametersPanel:rect_position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1920, -0.25, 0, 0.10048, -349.297, 1328, -0.260104, 12.8081, 0.104875, 16.1415, 1376, -0.0685275, -31.0251, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("ParametersPanel:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.3, 0.5 )
+}
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment()
+{
+	vec3 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+	COLOR.rgb = vec3(dot(c.rgb, vec3(0.299, 0.587, 0.114)));
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[node name="UI" type="Control"]
+self_modulate = Color( 1, 1, 1, 0.356863 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UIPanel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.352941 )
+margin_left = -608.0
+margin_bottom = 1080.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XLabel" type="Label" parent="UIPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 80.0
+margin_top = 56.0
+margin_right = 97.0
+margin_bottom = 42.0
+custom_fonts/font = ExtResource( 8 )
+text = "X ="
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEditX" parent="UIPanel/XLabel" instance=ExtResource( 1 )]
+margin_left = 24.0
+margin_right = 432.0
+margin_bottom = 28.0
+focus_neighbour_top = NodePath("../../LineWidth/LineWidthEdit")
+focus_neighbour_bottom = NodePath("../../YLabel/LineEditY")
+focus_next = NodePath("../../YLabel/LineEditY")
+focus_previous = NodePath("../../LineWidth/LineWidthEdit")
+custom_fonts/font = ExtResource( 3 )
+clear_button_enabled = true
+placeholder_text = "x(t)"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/XLabel/LineEditX"]
+margin_left = -48.0
+margin_top = 8.0
+margin_right = -32.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YLabel" type="Label" parent="UIPanel"]
+margin_left = 80.0
+margin_top = 104.0
+margin_right = 104.0
+margin_bottom = 126.0
+custom_fonts/font = ExtResource( 8 )
+text = "Y ="
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEditY" parent="UIPanel/YLabel" instance=ExtResource( 1 )]
+margin_left = 24.0
+margin_right = 432.0
+margin_bottom = 28.0
+focus_neighbour_top = NodePath("../../XLabel/LineEditX")
+focus_neighbour_bottom = NodePath("../../ZLabel/LineEditZ")
+focus_next = NodePath("../../ZLabel/LineEditZ")
+focus_previous = NodePath("../../XLabel/LineEditX")
+custom_fonts/font = ExtResource( 3 )
+clear_button_enabled = true
+placeholder_text = "y(t)"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/YLabel/LineEditY"]
+margin_left = -48.0
+margin_top = 8.0
+margin_right = -32.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZLabel" type="Label" parent="UIPanel"]
+margin_left = 80.0
+margin_top = 152.0
+margin_right = 102.0
+margin_bottom = 174.0
+custom_fonts/font = ExtResource( 8 )
+text = "Z ="
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEditZ" parent="UIPanel/ZLabel" instance=ExtResource( 1 )]
+margin_left = 24.0
+margin_right = 432.0
+margin_bottom = 28.0
+focus_neighbour_top = NodePath("../../YLabel/LineEditY")
+focus_neighbour_bottom = NodePath("../../AnimateButton")
+focus_next = NodePath("../../AnimateButton")
+focus_previous = NodePath(".")
+custom_fonts/font = ExtResource( 3 )
+clear_button_enabled = true
+placeholder_text = "z(t)"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/ZLabel/LineEditZ"]
+margin_left = -48.0
+margin_top = 8.0
+margin_right = -32.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleXLabel" type="Label" parent="UIPanel"]
+margin_left = 96.0
+margin_top = 296.0
+margin_right = 147.0
+margin_bottom = 310.0
+custom_fonts/font = ExtResource( 8 )
+text = "Scale X:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleEditX" parent="UIPanel/ScaleXLabel" instance=ExtResource( 1 )]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../ResetButton")
+focus_neighbour_right = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+focus_neighbour_bottom = NodePath("../../ScaleYLabel/ScaleEditY")
+focus_next = NodePath("../../ScaleYLabel/ScaleEditY")
+focus_previous = NodePath("../../GrayScaleButton")
+custom_fonts/font = ExtResource( 8 )
+clear_button_enabled = true
+placeholder_text = "1"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/ScaleXLabel/ScaleEditX"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleYLabel" type="Label" parent="UIPanel"]
+margin_left = 96.0
+margin_top = 336.0
+margin_right = 147.0
+margin_bottom = 350.0
+custom_fonts/font = ExtResource( 8 )
+text = "Scale Y:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleEditY" parent="UIPanel/ScaleYLabel" instance=ExtResource( 1 )]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../ScaleXLabel/ScaleEditX")
+focus_neighbour_right = NodePath("../../LeftPlotLimit/LeftLimitEdit")
+focus_neighbour_bottom = NodePath("../../ScaleZLabel/ScaleEditZ")
+focus_next = NodePath("../../ScaleZLabel/ScaleEditZ")
+focus_previous = NodePath("../../ScaleXLabel/ScaleEditX")
+custom_fonts/font = ExtResource( 8 )
+clear_button_enabled = true
+placeholder_text = "1"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/ScaleYLabel/ScaleEditY"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleZLabel" type="Label" parent="UIPanel"]
+margin_left = 96.0
+margin_top = 376.0
+margin_right = 147.0
+margin_bottom = 390.0
+custom_fonts/font = ExtResource( 8 )
+text = "Scale Z:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScaleEditZ" parent="UIPanel/ScaleZLabel" instance=ExtResource( 1 )]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../ScaleYLabel/ScaleEditY")
+focus_neighbour_right = NodePath("../../RightPlotLimit/RightLimitEdit")
+focus_neighbour_bottom = NodePath("../../LeftTLimit/LeftTLimitEdit")
+focus_next = NodePath("../../LeftTLimit/LeftTLimitEdit")
+focus_previous = NodePath("../../ScaleYLabel/ScaleEditY")
+custom_fonts/font = ExtResource( 8 )
+clear_button_enabled = true
+placeholder_text = "1"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/ScaleZLabel/ScaleEditZ"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumberOfSubLines" type="Label" parent="UIPanel"]
+margin_left = 272.0
+margin_top = 296.0
+margin_right = 402.0
+margin_bottom = 310.0
+custom_fonts/font = ExtResource( 8 )
+text = "Number of sublines:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumberOfSublinesEdit" parent="UIPanel/NumberOfSubLines" instance=ExtResource( 1 )]
+margin_left = 160.0
+margin_bottom = 24.0
+focus_neighbour_left = NodePath("../../ScaleXLabel/ScaleEditX")
+focus_neighbour_top = NodePath("../../GrayScaleButton")
+focus_neighbour_bottom = NodePath("../../LeftPlotLimit/LeftLimitEdit")
+focus_next = NodePath("../../LeftPlotLimit/LeftLimitEdit")
+focus_previous = NodePath("../../tIncrement/tIncrementEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "50"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/NumberOfSubLines/NumberOfSublinesEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftPlotLimit" type="Label" parent="UIPanel"]
+margin_left = 312.0
+margin_top = 336.0
+margin_right = 417.0
+margin_bottom = 358.0
+custom_fonts/font = ExtResource( 8 )
+text = "Left plot limit:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftLimitEdit" parent="UIPanel/LeftPlotLimit" instance=ExtResource( 1 )]
+margin_left = 120.0
+margin_right = 184.0
+margin_bottom = 24.0
+focus_neighbour_left = NodePath("../../ScaleYLabel/ScaleEditY")
+focus_neighbour_top = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+focus_neighbour_bottom = NodePath("../../RightPlotLimit/RightLimitEdit")
+focus_next = NodePath("../../RightPlotLimit/RightLimitEdit")
+focus_previous = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "0"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/LeftPlotLimit/LeftLimitEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightPlotLimit" type="Label" parent="UIPanel"]
+margin_left = 304.0
+margin_top = 376.0
+margin_right = 421.0
+margin_bottom = 398.0
+custom_fonts/font = ExtResource( 8 )
+text = "Right plot limit:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightLimitEdit" parent="UIPanel/RightPlotLimit" instance=ExtResource( 1 )]
+margin_left = 128.0
+margin_right = 192.0
+margin_bottom = 24.0
+focus_neighbour_left = NodePath("../../ScaleZLabel/ScaleEditZ")
+focus_neighbour_top = NodePath("../../LeftPlotLimit/LeftLimitEdit")
+focus_neighbour_bottom = NodePath("../../PointRaduis/PointRadiusEdit")
+focus_next = NodePath("../../PointRaduis/PointRadiusEdit")
+focus_previous = NodePath("../../LeftPlotLimit/LeftLimitEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "20"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/RightPlotLimit/RightLimitEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointRaduis" type="Label" parent="UIPanel"]
+margin_left = 323.182
+margin_top = 415.646
+margin_right = 411.182
+margin_bottom = 429.646
+custom_fonts/font = ExtResource( 8 )
+text = "Point radius:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointRadiusEdit" parent="UIPanel/PointRaduis" instance=ExtResource( 1 )]
+margin_left = 108.818
+margin_top = -7.64599
+margin_right = 172.818
+margin_bottom = 24.354
+focus_neighbour_left = NodePath("../../LeftTLimit/LeftTLimitEdit")
+focus_neighbour_top = NodePath("../../RightPlotLimit/RightLimitEdit")
+focus_neighbour_bottom = NodePath("../../PointColor/PointColorPickerButton")
+focus_next = NodePath("../../LineWidth/LineWidthEdit")
+focus_previous = NodePath("../../RightTLimit/RightTLimitEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "0.5"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/PointRaduis/PointRadiusEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftTLimit" type="Label" parent="UIPanel"]
+margin_left = 72.0
+margin_top = 416.0
+margin_right = 154.0
+margin_bottom = 438.0
+custom_fonts/font = ExtResource( 8 )
+text = "Left t limit:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftTLimitEdit" parent="UIPanel/LeftTLimit" instance=ExtResource( 1 )]
+margin_left = 88.0
+margin_right = 152.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../ScaleZLabel/ScaleEditZ")
+focus_neighbour_right = NodePath("../../PointRaduis/PointRadiusEdit")
+focus_neighbour_bottom = NodePath("../../RightTLimit/RightTLimitEdit")
+focus_next = NodePath("../../RightTLimit/RightTLimitEdit")
+focus_previous = NodePath("../../ScaleZLabel/ScaleEditZ")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "0"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/LeftTLimit/LeftTLimitEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightTLimit" type="Label" parent="UIPanel"]
+margin_left = 64.0
+margin_top = 456.0
+margin_right = 143.0
+margin_bottom = 470.0
+custom_fonts/font = ExtResource( 8 )
+text = "Right t limit:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightTLimitEdit" parent="UIPanel/RightTLimit" instance=ExtResource( 1 )]
+margin_left = 96.0
+margin_right = 160.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../LeftTLimit/LeftTLimitEdit")
+focus_neighbour_right = NodePath("../../PointColor/PointColorPickerButton")
+focus_neighbour_bottom = NodePath("../../tIncrement/tIncrementEdit")
+focus_next = NodePath("../../tIncrement/tIncrementEdit")
+focus_previous = NodePath("../../LeftTLimit/LeftTLimitEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "100"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/RightTLimit/RightTLimitEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tIncrement" type="Label" parent="UIPanel"]
+margin_left = 56.0
+margin_top = 496.0
+margin_right = 186.0
+margin_bottom = 518.0
+custom_fonts/font = ExtResource( 8 )
+text = "t  increment:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tIncrementEdit" parent="UIPanel/tIncrement" instance=ExtResource( 1 )]
+margin_left = 104.0
+margin_right = 168.0
+margin_bottom = 24.0
+focus_neighbour_top = NodePath("../../RightTLimit/RightTLimitEdit")
+focus_neighbour_right = NodePath("../../LineColor/LineColorPickerButton")
+focus_neighbour_bottom = NodePath("../../BackgroungColor/BackgroungColorPick")
+focus_next = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+focus_previous = NodePath("../../RightTLimit/RightTLimitEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "0.01"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/tIncrement/tIncrementEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineWidth" type="Label" parent="UIPanel"]
+margin_left = 328.0
+margin_top = 528.0
+margin_right = 416.0
+margin_bottom = 542.0
+custom_fonts/font = ExtResource( 8 )
+text = "Line Width:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineWidthEdit" parent="UIPanel/LineWidth" instance=ExtResource( 1 )]
+margin_left = 104.0
+margin_right = 168.0
+margin_bottom = 24.0
+focus_neighbour_left = NodePath("../../BackgroungColor/BackgroungColorPick")
+focus_neighbour_top = NodePath("../../LineColor/LineColorPickerButton")
+focus_neighbour_bottom = NodePath("../../XLabel/LineEditX")
+focus_next = NodePath("../../XLabel/LineEditX")
+focus_previous = NodePath("../../PointRaduis/PointRadiusEdit")
+custom_fonts/font = ExtResource( 8 )
+placeholder_text = "3.0"
+placeholder_alpha = 0.5
+caret_blink_speed = 0.5
+
+[node name="Warning" type="Label" parent="UIPanel/LineWidth/LineWidthEdit"]
+margin_left = 72.0
+margin_right = 88.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 8 )
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineColor" type="Label" parent="UIPanel"]
+margin_left = 328.0
+margin_top = 488.0
+margin_right = 416.0
+margin_bottom = 502.0
+custom_fonts/font = ExtResource( 8 )
+text = "Line color:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineColorPickerButton" type="ColorPickerButton" parent="UIPanel/LineColor"]
+margin_left = 104.0
+margin_right = 184.0
+margin_bottom = 20.0
+color = Color( 0.992157, 1, 0, 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointColor" type="Label" parent="UIPanel"]
+margin_left = 320.0
+margin_top = 456.0
+margin_right = 408.0
+margin_bottom = 470.0
+custom_fonts/font = ExtResource( 8 )
+text = "Point color:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PointColorPickerButton" type="ColorPickerButton" parent="UIPanel/PointColor"]
+margin_left = 112.0
+margin_right = 192.0
+margin_bottom = 20.0
+color = Color( 1, 1, 1, 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroungColor" type="Label" parent="UIPanel"]
+margin_left = 56.0
+margin_top = 536.0
+margin_right = 134.0
+margin_bottom = 550.0
+custom_fonts/font = ExtResource( 8 )
+text = "Background:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroungColorPick" type="ColorPickerButton" parent="UIPanel/BackgroungColor"]
+margin_left = 104.0
+margin_right = 184.0
+margin_bottom = 20.0
+focus_neighbour_top = NodePath("../../tIncrement/tIncrementEdit")
+focus_neighbour_right = NodePath("../../LineWidth/LineWidthEdit")
+focus_neighbour_bottom = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+focus_next = NodePath("../../NumberOfSubLines/NumberOfSublinesEdit")
+focus_previous = NodePath("../../tIncrement/tIncrementEdit")
+color = Color( 0.172549, 0.184314, 0.188235, 1 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimateButton" type="Button" parent="UIPanel"]
+margin_left = 104.0
+margin_top = 192.0
+margin_right = 216.0
+margin_bottom = 220.0
+focus_neighbour_top = NodePath("../ZLabel/LineEditZ")
+focus_neighbour_right = NodePath("../DrawPlotLineButton")
+focus_neighbour_bottom = NodePath("../ResetButton")
+focus_next = NodePath("../ResetButton")
+focus_previous = NodePath("../ZLabel/LineEditZ")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 8 )
+text = "Animate"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResetButton" type="Button" parent="UIPanel"]
+margin_left = 104.0
+margin_top = 224.0
+margin_right = 216.0
+margin_bottom = 252.0
+focus_neighbour_top = NodePath("../AnimateButton")
+focus_neighbour_right = NodePath("../DeletePlotLineButton")
+focus_neighbour_bottom = NodePath("../ScaleXLabel/ScaleEditX")
+focus_next = NodePath("../DrawPlotLineButton")
+focus_previous = NodePath("../AnimateButton")
+custom_fonts/font = ExtResource( 8 )
+text = "Reset"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DrawPlotLineButton" type="Button" parent="UIPanel"]
+margin_left = 224.0
+margin_top = 192.0
+margin_right = 344.0
+margin_bottom = 220.0
+focus_neighbour_left = NodePath("../AnimateButton")
+focus_neighbour_top = NodePath("../ZLabel/LineEditZ")
+focus_neighbour_right = NodePath("../AntiAliasingButton")
+focus_neighbour_bottom = NodePath("../DeletePlotLineButton")
+focus_next = NodePath("../DeletePlotLineButton")
+focus_previous = NodePath("../ResetButton")
+custom_fonts/font = ExtResource( 8 )
+text = "Draw PlotLine"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeletePlotLineButton" type="Button" parent="UIPanel"]
+margin_left = 224.0
+margin_top = 224.0
+margin_right = 344.0
+margin_bottom = 252.0
+focus_neighbour_left = NodePath("../ResetButton")
+focus_neighbour_top = NodePath("../DrawPlotLineButton")
+focus_neighbour_right = NodePath("../GrayScaleButton")
+focus_neighbour_bottom = NodePath("../ScaleXLabel/ScaleEditX")
+focus_next = NodePath("../AntiAliasingButton")
+focus_previous = NodePath("../DrawPlotLineButton")
+custom_fonts/font = ExtResource( 8 )
+text = "Hide PlotLine"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XCoordinateLabel" type="Label" parent="UIPanel"]
+margin_left = 520.0
+margin_top = 56.0
+margin_right = 544.0
+margin_bottom = 78.0
+custom_fonts/font = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YCoordinateLabel" type="Label" parent="UIPanel"]
+margin_left = 520.0
+margin_top = 104.0
+margin_right = 544.0
+margin_bottom = 126.0
+custom_fonts/font = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ZCoordinateLabel" type="Label" parent="UIPanel"]
+margin_left = 520.0
+margin_top = 152.0
+margin_right = 544.0
+margin_bottom = 174.0
+custom_fonts/font = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AntiAliasingButton" type="CheckButton" parent="UIPanel"]
+margin_left = 344.0
+margin_top = 184.0
+margin_right = 522.0
+margin_bottom = 224.0
+focus_neighbour_left = NodePath("../DrawPlotLineButton")
+focus_neighbour_top = NodePath("../ZLabel/LineEditZ")
+focus_neighbour_bottom = NodePath("../GrayScaleButton")
+focus_next = NodePath("../GrayScaleButton")
+focus_previous = NodePath("../DeletePlotLineButton")
+custom_fonts/font = ExtResource( 8 )
+text = "AntiAliasing"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GrayScaleButton" type="CheckButton" parent="UIPanel"]
+margin_left = 368.0
+margin_top = 216.0
+margin_right = 523.0
+margin_bottom = 256.0
+focus_neighbour_left = NodePath("../DeletePlotLineButton")
+focus_neighbour_top = NodePath("../AntiAliasingButton")
+focus_neighbour_bottom = NodePath("../NumberOfSubLines/NumberOfSublinesEdit")
+focus_next = NodePath("../ScaleXLabel/ScaleEditX")
+focus_previous = NodePath("../AntiAliasingButton")
+custom_fonts/font = ExtResource( 8 )
+text = "GrayScale"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="UIPanel"]
+margin_left = 264.0
+margin_top = 16.0
+margin_right = 328.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CameraMode" type="Label" parent="UIPanel"]
+margin_left = 528.0
+margin_top = 208.0
+margin_right = 600.0
+margin_bottom = 226.0
+custom_fonts/font = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ControlsLabel" type="Label" parent="UIPanel"]
+margin_left = 360.0
+margin_top = 760.0
+margin_right = 568.0
+margin_bottom = 1030.0
+custom_fonts/font = ExtResource( 9 )
+text = "Q - Toggle Interface
+R - Reset Point
+Space - Pause/Play
+1 - Change to XY Plane
+2 - Change to YZ Plane
+3 - Change to XZ Plane
+4 - Change to Free Camera
+5 - Change to Follow Camera
+J - Reset Camera
+F - Focus Camera
+Shift - 2xSpeed Movement/Scroll
+F3 - Fullscreen
+P - Take a Screenshot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="TextureRect" parent="UIPanel/ControlsLabel"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 216.0
+margin_bottom = 279.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MathFuctions" type="Label" parent="UIPanel"]
+margin_left = 248.0
+margin_top = 576.0
+margin_right = 314.0
+margin_bottom = 594.0
+custom_fonts/font = ExtResource( 9 )
+text = "Functions:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Trigonometric" type="Label" parent="UIPanel/MathFuctions"]
+margin_left = -168.0
+margin_top = 32.0
+margin_right = 13.0
+margin_bottom = 184.0
+custom_fonts/font = ExtResource( 9 )
+text = "sin(t)
+cos(t)
+tan(t)
+acos(t)
+asin(t)      //Only in RADIANS
+atan(t)
+sinh(t)
+cosh(t)
+tanh(t)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DefFunction" type="Label" parent="UIPanel/MathFuctions"]
+margin_left = -168.0
+margin_top = 224.0
+margin_right = 87.0
+margin_bottom = 410.0
+custom_fonts/font = ExtResource( 9 )
+text = "pow(base, exp)   //base^exp
+sqrt(t)
+exp(t)
+log(t)   //natural log
+abs(t)   //absolute value
+randf()   //random float from 0 to 1
+randi()   //random int
+randi % j   //random int from 0 to j 
+deg2rad(t)   //converts degrees to radians"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Constants" type="Label" parent="UIPanel/MathFuctions"]
+margin_left = 112.0
+margin_top = 40.0
+margin_right = 293.0
+margin_bottom = 142.0
+custom_fonts/font = ExtResource( 9 )
+text = "Constants:
+PI = 3.141593
+INF = positive infinity
+-INF = negative infinity
+NAN = invalid number"
+
+[node name="ParametersPanel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.352941 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_right = 592.001
+margin_bottom = 1080.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ParametersPanel"]
+margin_left = 32.0
+margin_right = 560.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="ParametersPanel/VBoxContainer"]
+margin_right = 528.0
+margin_bottom = 47.0
+custom_fonts/font = ExtResource( 8 )
+text = "
+Custom Parameters:"
+align = 1
+
+[node name="ToggleUIButton" type="Button" parent="."]
+margin_left = 56.0
+margin_top = 1016.0
+margin_right = 112.0
+margin_bottom = 1044.0
+custom_fonts/font = ExtResource( 8 )
+toggle_mode = true
+text = "UI"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Close = SubResource( 1 )
+anims/Open = SubResource( 2 )
+
+[node name="ColorFilter" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 4 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+[connection signal="toggled" from="ToggleUIButton" to="." method="_on_ToggleUIButton_toggled"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

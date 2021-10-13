@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Scripts/LineEdit.gd" type="Script" id=1]
+
+[node name="LineEditX" type="LineEdit"]
+margin_left = 16.0
+margin_top = -8.0
+margin_right = 224.0
+margin_bottom = 16.0
+caret_blink = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

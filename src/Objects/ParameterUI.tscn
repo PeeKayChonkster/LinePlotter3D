@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Scripts/ParameterUI.gd" type="Script" id=1]
+[ext_resource path="res://src/Scripts/LineEdit.gd" type="Script" id=2]
+[ext_resource path="res://src/MyFont.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/MyFontBigger.tres" type="DynamicFont" id=4]
+
+[node name="ParameterUI" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 56.0
+margin_top = 8.0
+margin_right = -1544.0
+margin_bottom = -1048.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeleteButton" type="Button" parent="."]
+margin_right = 18.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 3 )
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreateButton" type="Button" parent="."]
+margin_left = 22.0
+margin_right = 43.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 3 )
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParameterLabel" type="Label" parent="."]
+margin_left = 47.0
+margin_top = 5.0
+margin_right = 47.0
+margin_bottom = 31.0
+mouse_filter = 0
+custom_fonts/font = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParameterValueLineEdit" type="LineEdit" parent="."]
+margin_left = 51.0
+margin_right = 121.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 4 )
+expand_to_text_length = true
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Label" parent="ParameterValueLineEdit"]
+margin_left = -73.0
+margin_top = 8.0
+margin_right = -57.0
+margin_bottom = 22.0
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 125.0
+margin_right = 125.0
+margin_bottom = 36.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Panel" type="Panel" parent="Popup"]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -36.0
+margin_right = 51.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnterParameterLabel" type="Label" parent="Popup/Panel"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 190.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 3 )
+text = "Enter parameter name:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParameterNameLineEdit" type="LineEdit" parent="Popup/Panel/EnterParameterLabel"]
+margin_left = 8.0
+margin_top = 32.0
+margin_right = 168.0
+margin_bottom = 64.0
+custom_fonts/font = ExtResource( 3 )
+caret_blink = true
+caret_blink_speed = 0.5
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Warning" type="Label" parent="Popup/Panel/EnterParameterLabel/ParameterNameLineEdit"]
+margin_left = 168.0
+margin_top = 8.0
+margin_right = 184.0
+margin_bottom = 22.0
+text = "!!!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="DeleteButton" to="." method="_on_DeleteButton_pressed"]
+[connection signal="pressed" from="CreateButton" to="." method="_on_CreateButton_pressed"]
+[connection signal="gui_input" from="ParameterLabel" to="." method="_on_ParameterLabel_gui_input"]
+[connection signal="text_changed" from="ParameterValueLineEdit" to="." method="_on_ParameterValueLineEdit_text_changed"]
+[connection signal="text_entered" from="Popup/Panel/EnterParameterLabel/ParameterNameLineEdit" to="." method="_on_ParameterNameLineEdit_text_entered"]
